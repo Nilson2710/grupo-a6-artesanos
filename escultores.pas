@@ -27,7 +27,8 @@ procedure iniciarVariables;
 begin
   total_escultores := 0;
   total_incorrectos := 0;
-  guardarEscultor := False;
+  total_menor2000:=0;
+guardarEscultor := False;
 end;
 
 // FUNCIONES
@@ -63,7 +64,11 @@ begin
       resp := True;
     end;
   end;
-  hayQueInvertir := resp;
+  si (resp=falso) y (anio<2000)entonces
+    empezar
+      total_menor2000:=total_menor2000+1;
+    terminar ;
+hayQueInvertir := resp;
 end;
 
 function invertir(anioIncorrecto : Integer): Integer;
@@ -80,6 +85,10 @@ begin
     n := (n DIV 10);
   end;
   invertir := m;
+  si (m < 2000 ) entonces
+    empezar
+      total_menor2000:=total_menor2000+1;
+    terminar ;
 end;
 
 // ALGORITMO
@@ -156,8 +165,8 @@ begin
   Close(a_sec);
   WriteLn('Análisis terminado.');
 
-  // Informar escultores antes del 2000.
-
+  // Informar escultores antes del 2000 .
+WriteLn ( ' - La cantidad de escultores menores al año 2000 ' , Round (total_menor2000), ' % ' );
   // Informar porcentaje incorrecto.
   porcentaje := (total_incorrectos * 100) / total_escultores;
   WriteLn('- Porcentaje de incorrectos sobre total de escultores: ', Round(porcentaje), '%');
